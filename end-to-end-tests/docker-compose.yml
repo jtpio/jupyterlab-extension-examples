@@ -1,0 +1,52 @@
+version: '3.5'
+
+services:
+  lab:
+    container_name: jupyterlab
+    build:
+      context: .
+    command: [
+        'jupyter',
+        'lab',
+        '--ServerApp.token=',
+        '--ServerApp.password=',
+        '--ServerApp.disable_check_xsrf=True',
+        '--LabServerApp.extra_labextensions_path=/opt/labextension',
+        # Workaround bug: https://github.com/ipython/traitlets/issues/668
+        '--LabServerApp.extra_labextensions_path=/dev/null',
+      ]
+    networks:
+      - frontend
+    ports:
+      - 8888:8888
+    volumes:
+      # Extension folder and name are set externally through .env file
+      - ../$EXT_FOLDER/labextension:/opt/labextension/@jupyterlab-examples/$EXT_NAME
+
+  e2e:
+    image: mcr.microsoft.com/playwright:v1.12.0-focal
+    entrypoint:
+      [
+        '/tmp/e2e-tests/wait-for-it.sh',
+        'jupyterlab:8888',
+        '--strict',
+        '--timeout=60',
+        '--',
+      ]
+    command: '/tmp/e2e-tests/run-e2e.sh'
+    environment:
+      # JupyterLab URL
+      TARGET_URL: http://jupyterlab:8888
+    # See https://playwright.dev/docs/docker/#run-the-image
+    ipc: host
+    networks:
+      - frontend
+    depends_on:
+      - lab
+    volumes:
+      - .:/tmp/e2e-tests
+      - ../$EXT_FOLDER/../ui-tests:/opt/ui-tests
+    working_dir: /opt/ui-tests
+
+networks:
+  frontend:
