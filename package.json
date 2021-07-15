@@ -23,6 +23,7 @@
     "packages": [
       "command-palette",
       "commands",
+      "completer",
       "context-menu",
       "custom-log-console",
       "datagrid",

@@ -31,6 +31,7 @@ jobs:
           - state
           - toolbar-button
           - widgets
+          - completer
         os: [ubuntu-latest, macos-latest, windows-latest]
 
     defaults:

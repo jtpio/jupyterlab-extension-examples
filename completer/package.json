@@ -1,0 +1,83 @@
+{
+  "name": "@jupyterlab-examples/completer",
+  "version": "0.1.0",
+  "description": "minimal lab example",
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension"
+  ],
+  "homepage": "https://github.com/jupyterlab/extension-examples",
+  "bugs": {
+    "url": "https://github.com/jupyterlab/extension-examples/issues"
+  },
+  "license": "BSD-3-Clause",
+  "author": "Project Jupyter Contributors",
+  "files": [
+    "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
+    "style/**/*.{css,eot,gif,html,jpg,json,png,svg,woff2,ttf}"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "style": "style/index.css",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jupyterlab/extension-examples.git"
+  },
+  "scripts": {
+    "build": "jlpm run build:lib && jlpm run build:labextension:dev",
+    "build:all": "jlpm run build:lib && jlpm run build:labextension",
+    "build:labextension": "jupyter labextension build .",
+    "build:labextension:dev": "jupyter labextension build --development True .",
+    "build:lib": "tsc",
+    "build:prod": "jlpm run build:lib && jlpm run build:labextension",
+    "clean": "jlpm run clean:lib",
+    "clean:all": "jlpm run clean:lib && jlpm run clean:labextension",
+    "clean:labextension": "rimraf jupyterlab_examples_completer/labextension",
+    "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
+    "eslint": "eslint . --ext .ts,.tsx --fix",
+    "eslint:check": "eslint . --ext .ts,.tsx",
+    "install:extension": "jupyter labextension develop --overwrite .",
+    "prepare": "jlpm run clean && jlpm run build:prod",
+    "watch": "run-p watch:src watch:labextension",
+    "watch:labextension": "jupyter labextension watch .",
+    "watch:src": "tsc -w"
+  },
+  "dependencies": {
+    "@jupyterlab/application": "^3.0.0-rc.15",
+    "@jupyterlab/completer": "^3.0.0-rc.15",
+    "@jupyterlab/launcher": "^3.0.0-rc.15",
+    "@jupyterlab/mainmenu": "^3.0.0-rc.15",
+    "@jupyterlab/outputarea": "^3.0.0-rc.15",
+    "@jupyterlab/translation": "^3.0.0-rc.15",
+    "@lumino/algorithm": "^1.3.3",
+    "@lumino/coreutils": "^1.5.3",
+    "@lumino/datagrid": "^0.3.1",
+    "@lumino/disposable": "^1.4.3"
+  },
+  "devDependencies": {
+    "@jupyterlab/builder": "^3.0.0-rc.15",
+    "@typescript-eslint/eslint-plugin": "^2.27.0",
+    "@typescript-eslint/parser": "^2.27.0",
+    "eslint": "^7.5.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-jsdoc": "^22.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.19.0",
+    "rimraf": "^3.0.2",
+    "typescript": "~4.1.3"
+  },
+  "sideEffects": [
+    "style/*.css"
+  ],
+  "jupyterlab": {
+    "extension": true,
+    "schemaDir": "schema",
+    "outputDir": "jupyterlab_examples_completer/labextension",
+    "disabledExtensions": [
+      "@jupyterlab/completer-extension:notebooks"
+    ]
+  }
+}

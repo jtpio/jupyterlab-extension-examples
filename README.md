@@ -54,6 +54,7 @@ Start with the [Hello World](hello-world) and then jump to the topic you are int
 
 - [Commands](commands)
 - [Command Palette](command-palette)
+- [Completer](completer)
 - [Context Menu](context-menu)
 - [Custom Log Console](custom-log-console)
 - [Datagrid](datagrid)
@@ -93,6 +94,12 @@ Extend the main app with a Command.
 Register commands in the Command Palette.
 
 [![Commmand Palette](command-palette/preview.png)](command-palette)
+
+### [Completer](completer)
+
+Customize tab autocomplete data sources.
+
+[![Completer](completer/preview.png)](completer)
 
 ### [Context Menu](context-menu)
 
